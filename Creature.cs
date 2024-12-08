@@ -101,4 +101,24 @@ internal class Creature
             _level++;
         }
     }
+
+    public void Go(Direction direction) //Metoda GO na pojedynczy ruch stwora
+    {
+        string textToSentense = direction.ToString().ToLower(); //konwersja na string i ma małe litery
+        Console.WriteLine($"{Name} goes {textToSentense}.");
+    }
+
+    public void Go(Direction[] directions) //Metoda GO na tablicę ruchów 
+    {
+        foreach (var direction in directions)
+        {
+            Go(direction); //wejsciem jest pojedynczy kierunek
+        }
+    }
+
+    public void Go(string directionInputString) //Metoda GO parsująca string na tabelicę ruchów
+    {
+        Direction[] directions = DirectionParser.Parse(directionInputString);
+        Go(directions); //wejsciem jest tablica kierunków
+    }
 }
