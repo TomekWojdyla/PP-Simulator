@@ -6,13 +6,15 @@ using System.Threading.Tasks;
 
 namespace Simulator;
 
-internal class Creature
+public abstract class Creature
 {
     //Pola Prywatne
     private string _name = "Unknown"; //konwencja nazywania pól prywatnych _camelCase
     private int _level;
 
     //Właściwości + gettery/settery
+    public abstract int Power {  get; }
+
     public string Name
     {
         get
@@ -84,10 +86,10 @@ internal class Creature
         //Nic nie wykonuje
     }
 
-    public void SayHi()
-    {
-        Console.WriteLine($"Hi, I'm {Name}, my level is {Level}.");
-    }
+    public abstract void SayHi(); //Kod wykomentowany z powodu pojawienia sie metody abstrakcyjnej - for reference only
+    //{
+    //    Console.WriteLine($"Hi, I'm {Name}, my level is {Level}.");
+    //}
 
     public string Info
     {
