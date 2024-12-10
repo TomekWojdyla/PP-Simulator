@@ -35,6 +35,7 @@ internal class Program
             };
             foreach (Creature creature in creatures)
             {
+                //creature.SayHi();
                 Console.WriteLine($"{creature.Name,-15}: {creature.Power}");
             }
         }

@@ -27,18 +27,7 @@ public class Elf : Creature
         }
         init
         {
-            if (value < 0)
-            {
-                _agility = 0;
-            }
-            else if (value > 10)
-            {
-                _agility = 10;
-            }
-            else
-            {
-                _agility = value;
-            }
+            _agility = Validator.Limiter(value, 0, 10);
         }
     }
     public void Sing()

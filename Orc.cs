@@ -27,18 +27,7 @@ public class Orc : Creature
         }
         init
         {
-            if (value < 0)
-            {
-                _rage = 0;
-            }
-            else if (value > 10)
-            {
-                _rage = 10;
-            }
-            else
-            {
-                _rage = value;
-            }
+            _rage = Validator.Limiter(value, 0, 10);
         }
     }
 

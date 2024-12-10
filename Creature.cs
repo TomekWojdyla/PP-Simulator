@@ -23,31 +23,7 @@ public abstract class Creature
         }
         init
         {
-            string validatedName = value.Trim(); //Ucina białe znaki na początku i na końcu
-            if (validatedName == "" || validatedName == null) //Wyłapanie sytuacji w której z nazwy nic nie zostało po Trim()
-            {
-                _name = "Unknown";
-            }
-            else
-            {
-                if (validatedName.Length < 3)
-                {
-                    validatedName = validatedName.PadRight(3, '#'); //Uzyskanie nazwy na min 3 znaki
-                }
-                else if (validatedName.Length > 25)
-                {
-                    validatedName = validatedName.Substring(0, 25).TrimEnd(); //ucięcie stringa do max 25 znaków + ucięcie białych znaków z końca
-                    if (validatedName.Length < 3)
-                    {
-                        validatedName = validatedName.PadRight(3, '#'); //Uzyskanie nazwy na min 3 znaki
-                    }
-                }
-                if (char.IsLower(validatedName[0]))
-                {
-                    validatedName = char.ToUpper(validatedName[0]) + validatedName.Substring(1); //Ustawienie pierwszej litery na wielka
-                }
-                _name = validatedName;
-            }
+            _name = Validator.Shortener(value, 3, 25, '#');
         }
     }
     public int Level
@@ -58,18 +34,7 @@ public abstract class Creature
         }
         init
         {
-            if (value < 1)
-            {
-                _level = 1;
-            }
-            else if (value > 10)
-            {
-                _level = 10;
-            }
-            else
-            {
-                _level = value;
-            }
+            _level = Validator.Limiter(value, 1, 10);
         }
     }
 
