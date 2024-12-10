@@ -14,6 +14,7 @@ public abstract class Creature
 
     //Właściwości + gettery/settery
     public abstract int Power {  get; }
+    public abstract string Info { get; }
 
     public string Name
     {
@@ -56,11 +57,6 @@ public abstract class Creature
     //    Console.WriteLine($"Hi, I'm {Name}, my level is {Level}.");
     //}
 
-    public string Info
-    {
-        get { return $"{Name} [{Level}]"; }
-    }
-
     public void Upgrade()
     {
         if (_level < 10) //Sprawdzenie, że nie ma levelu 10 przed podniesieniem o 1
@@ -87,5 +83,10 @@ public abstract class Creature
     {
         Direction[] directions = DirectionParser.Parse(directionInputString);
         Go(directions); //wejsciem jest tablica kierunków
+    }
+
+    public override string ToString()
+    {
+        return $"{GetType().Name.ToUpper()}: {Name} [{Level}]{Info}";
     }
 }

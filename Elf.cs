@@ -19,6 +19,14 @@ public class Elf : Creature
         get { return 8 * Level + 2 * Agility; }
     }
 
+    public override string Info
+    {
+        get 
+        { 
+            return $"[{Agility}]"; 
+        }
+    }
+
     public int Agility
     {
         get

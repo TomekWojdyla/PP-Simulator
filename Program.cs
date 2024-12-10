@@ -39,6 +39,10 @@ internal class Program
                 Console.WriteLine($"{creature.Name,-15}: {creature.Power}");
             }
         }
-        Lab4a();
+        //Lab4a();
+        //Creature c = new Elf("Elandor", 5, -6);
+        //Console.WriteLine(c);
+        //Creature g = new Orc("Odor", -16, -1);
+        //Console.WriteLine(g);
     }
 }

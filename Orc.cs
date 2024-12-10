@@ -31,6 +31,13 @@ public class Orc : Creature
         }
     }
 
+    public override string Info
+    {
+        get
+        {
+            return $"[{Rage}]";
+        }
+    }
 
     public void Hunt()
     {
