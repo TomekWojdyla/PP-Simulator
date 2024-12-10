@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
 namespace Simulator;
 
-internal class Animals
+public class Animals
 {
     //Pola Prywatne
     private string _description = "Unknown"; //konwencja nazywania pól prywatnych _camelCase
@@ -26,8 +27,11 @@ internal class Animals
     }
     public uint Size { get; set; } = 3;
 
-    public string Info
+    public virtual string Info { get; }
+ 
+
+    public override string ToString()
     {
-        get { return $"{Description} <{Size}>"; }
+        return $"{GetType().Name.ToUpper()}: {Description} {Info}<{Size}>";
     }
 }
