@@ -27,7 +27,7 @@ public static class Validator
         string validatedName = value.Trim(); //Ucina białe znaki na początku i na końcu
         if (validatedName == "" || validatedName == null) //Wyłapanie sytuacji w której z nazwy nic nie zostało po Trim()
         {
-            return "Unknown";
+            return "###"; // zmiana z "Unknown"
         }
         else
         {
