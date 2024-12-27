@@ -1,105 +1,106 @@
-﻿namespace Simulator;
+﻿using Simulator.Maps;
+
+namespace Simulator;
 
 internal class Program
 {
     static void Main(string[] args)
     {
         Console.WriteLine("Starting Simulator!\n");
-        Lab5a();
+        Lab5b();
     }
 
-    public static void Lab5a()
+    public static void Lab5b()
     {
-        Point p1 = new(1, 1);
-        Console.WriteLine(p1);
-        Point p2 = p1.Next(Direction.Right);
-        Console.WriteLine(p2);
-        p2 = p2.Next(Direction.Right);
-        p2 = p2.Next(Direction.Up);
-        p2 = p2.Next(Direction.Right);
-        p2 = p2.Next(Direction.Up);
-        p2 = p2.NextDiagonal(Direction.Up);
-        p2 = p2.NextDiagonal(Direction.Up);
-        p2 = p2.Next(Direction.Left);
-        Console.WriteLine(p2);
-        p1 = p1.NextDiagonal(Direction.Down);
-        Console.WriteLine(p1);
+        SmallSquareMap smallMap1 = new(13); // no exception
+        Console.WriteLine($"Small map1 created. Size {smallMap1.Size}.");
 
-        Point p3 = new(100, 100);
-        p3 = p3.NextDiagonal(Direction.Down);
-        p3 = p3.NextDiagonal(Direction.Left);
-        Console.WriteLine(p3);
-        p3 = p3.NextDiagonal(Direction.Up);
-        p3 = p3.NextDiagonal(Direction.Right);
-        Console.WriteLine(p3);
+        SmallSquareMap smallMap2 = new(7); // no exception
+        Console.WriteLine($"Small map2 created. Size {smallMap2.Size}.");
 
-        Rectangle R1 = new(1, 1, 7, 8);
-        Console.WriteLine(R1);
+        Point testPoint1 = new(1, 1); // punkt wewnątrz mapy
+        Console.WriteLine(testPoint1);
+        Console.WriteLine($"Test Point 1 exist in the map1? {smallMap1.Exist(testPoint1)}.");
+        Console.WriteLine($"Test Point 1 exist in the map2? {smallMap2.Exist(testPoint1)}.");
+        Point movedTestPoint1 = smallMap1.Next(testPoint1, Direction.Right);
+        Console.WriteLine(movedTestPoint1);
+        Console.WriteLine($"Test Point 1 exist in the map1? {smallMap1.Exist(movedTestPoint1)}.");
+        movedTestPoint1 = smallMap1.NextDiagonal(movedTestPoint1, Direction.Up);
+        Console.WriteLine(movedTestPoint1);
+        Console.WriteLine($"Test Point 1 exist in the map1? {smallMap1.Exist(movedTestPoint1)}.");
 
-        Console.WriteLine(R1.Contains(p1)); //False
-        Console.WriteLine(R1.Contains(p2)); //True
-        Console.WriteLine(R1.Contains(new Point(1, 7))); //True
-        Console.WriteLine(R1.Contains(new Point(8, 8))); //False
 
-        Rectangle R2 = new(new Point(-1, -5), new Point(10, 11));
-        Console.WriteLine(R2);
 
-        Rectangle R3 = new(p1, p2);
-        Console.WriteLine(R3);
+        Point testPoint2 = new(12, 12); //punkt wejsciowy na krawedzi mapy
+        Console.WriteLine(testPoint2);
+        Console.WriteLine($"Test Point 2 exist in the map1? {smallMap1.Exist(testPoint2)}.");
+        Console.WriteLine($"Test Point 2 exist in the map2? {smallMap2.Exist(testPoint2)}.");
+        Point movedTestPoint2 = smallMap1.NextDiagonal(testPoint2, Direction.Up);
+        Console.WriteLine(movedTestPoint2);
+        Console.WriteLine($"Test Point 2 exist in the map1? {smallMap1.Exist(movedTestPoint2)}.");
 
-        Rectangle R4 = new(2, 8, -5, -4); // odwrócenie współrzędnych
-        Console.WriteLine(R4);
-
-        Rectangle R5 = new(p2, p1); // odwrócenie współrzędnych
-        Console.WriteLine(R5);
+        Point testPoint3 = new(-2, 10); //Punkt wejsciowy poza mapą
+        Console.WriteLine(testPoint3);
+        Console.WriteLine($"Test Point 3 exist in the map1? {smallMap1.Exist(testPoint3)}.");
+        Console.WriteLine($"Test Point 3 exist in the map2? {smallMap2.Exist(testPoint3)}.");
+        Point movedTestPoint3 = smallMap1.NextDiagonal(testPoint3, Direction.Left);
+        Console.WriteLine(movedTestPoint3);
+        Console.WriteLine($"Test Point 3 exist in the map1? {smallMap1.Exist(movedTestPoint3)}.");
 
 
         try
         {
-            Rectangle R6 = new(new Point(-1, -1), new Point(11, 11)); // No Exception expected
-            Console.WriteLine(R6);
+            SmallSquareMap smallMap3 = new(7); //no exception
+            Console.WriteLine($"Small map3 created. Size {smallMap3.Size}.");
+            Console.WriteLine($"Test Point 1 exist in the map3? {smallMap3.ExistAlternative(testPoint1)}.");
+            Console.WriteLine($"Test Point (-1,2) exist in the map3? {smallMap3.ExistAlternative(new Point(-1,2))}.");
+            Console.WriteLine($"Test Point (7,6) exist in the map3? {smallMap3.ExistAlternative(new Point(7, 6))}.");
 
-            Rectangle R7 = new(new Point(-1, -1), new Point(-1, 11)); //Exception expected -> X direction
-            Console.WriteLine(R7); //exception expected
-
+            SmallSquareMap smallMap4 = new(4); //exception expected -> too small
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Exception thrown: {ex.Message}");
+            Console.WriteLine(ex.Message);
         }
         finally
         {
             try
             {
-                Rectangle R8 = new(new Point(-1, -1), new Point(11, -1)); //Exception expected -> Y direction
-                Console.WriteLine(R8); //exception expected
+                SmallSquareMap smallMap5 = new(33); //exception expected -> too big
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Exception thrown: {ex.Message}");
+                Console.WriteLine(ex.Message); // the same exception
             }
         }
 
         /*
         Expected output:
+        Small map1 created. Size 13.
+        Small map2 created. Size 7.
         (1, 1)
+        Test Point 1 exist in the map1? True.
+        Test Point 1 exist in the map2? True.
         (2, 1)
-        (5, 5)
-        (0, 0)
-        (98, 100)
-        (100, 100)
-        (1, 1):(7, 8)
-        False
-        True
-        True
-        False
-        (-1, -5):(10,11)
-        (0, 0):(5, 5)
-        (-5, -4):(2, 8)
-        (0, 0):(5, 5)
-        (-1, -1):(11, 11)
-        Exception thrown: X1 and X2 cannot be equal. Rectangle definition requires different point coordinates in both directions. (Parameter 'x2')
-        Exception thrown: Y1 and Y2 cannot be equal. Rectangle definition requires different point coordinates in both directions. (Parameter 'y2')
+        Test Point 1 exist in the map1? True.
+        (3, 2)
+        Test Point 1 exist in the map1? True.
+        (12, 12)
+        Test Point 2 exist in the map1? True.
+        Test Point 2 exist in the map2? False.
+        (12, 12)
+        Test Point 2 exist in the map1? True.
+        (-2, 10)
+        Test Point 3 exist in the map1? False.
+        Test Point 3 exist in the map2? False.
+        (-2, 10)
+        Test Point 3 exist in the map1 False.
+        Small map3 created. Size 7.
+        Test Point 1 exist in the map3? True.
+        Test Point (-1,2) exist in the map3? False.
+        Test Point (7,6) exist in the map3? False.
+        For SmallSquareMap size needs to be in the range [5, 20]. (Parameter 'Size')
+        For SmallSquareMap size needs to be in the range [5, 20]. (Parameter 'Size')
         */
     }
 }
