@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Simulator.Maps
 {
-    public class SmallSquareMap : Map
+    internal class SmallSquareMap : Map
     {
         //Właściwości
         public int Size { get; }
