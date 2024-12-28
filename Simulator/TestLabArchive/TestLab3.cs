@@ -11,27 +11,27 @@ namespace Simulator.TestLabArchive
         public static void Lab3a()
         {
             Elf c = new() { Name = "   Shrek    ", Level = 20 };
-            c.SayHi();
+            Console.WriteLine(c.Greeting());
             c.Upgrade();
             Console.WriteLine(c.Info);
 
             c = new("  ", -5);
-            c.SayHi();
+            Console.WriteLine(c.Greeting());
             c.Upgrade();
             Console.WriteLine(c.Info);
 
             c = new("  donkey ") { Level = 7 };
-            c.SayHi();
+            Console.WriteLine(c.Greeting());
             c.Upgrade();
             Console.WriteLine(c.Info);
 
             c = new("Puss in Boots – a clever and brave cat.");
-            c.SayHi();
+            Console.WriteLine(c.Greeting());
             c.Upgrade();
             Console.WriteLine(c.Info);
 
             c = new("a                            troll name", 5);
-            c.SayHi();
+            Console.WriteLine(c.Greeting());
             c.Upgrade();
             Console.WriteLine(c.Info);
 
@@ -45,22 +45,34 @@ namespace Simulator.TestLabArchive
         public static void Lab3b()
         {
             Elf c = new("Shrek", 7);
-            c.SayHi();
+            Console.WriteLine(c.Greeting());
 
             Console.WriteLine("\n* Up");
-            c.Go(Direction.Up);
+            Console.WriteLine(c.Go(Direction.Up));
 
             Console.WriteLine("\n* Right, Left, Left, Down");
             Direction[] directions = {
             Direction.Right, Direction.Left, Direction.Left, Direction.Down
             };
-            c.Go(directions);
+            string[] goTable = c.Go(directions);
+            foreach (var go in goTable)
+            {
+                Console.WriteLine(go);
+            }
 
             Console.WriteLine("\n* LRL");
-            c.Go("LRL");
+            string[] goTable2 = c.Go("LRL");
+            foreach (var go in goTable2)
+            {
+                Console.WriteLine(go);
+            }
 
             Console.WriteLine("\n* xxxdR lyyLTyu");
-            c.Go("xxxdR lyyLTyu");
+            string[] goTable3 = c.Go("xxxdR lyyLTyu");
+            foreach (var go in goTable3)
+            {
+                Console.WriteLine(go);
+            }
         }
     }
 }

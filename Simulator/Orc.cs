@@ -45,17 +45,11 @@ public class Orc : Creature
         if (_huntCounter % _rageByHuntModifier == 0 && Rage < 10) //jeżeli ilość polowan podzielna przez modyfikator i rage < max
         {
             _rage++;
-            Console.WriteLine($"{Name} is hunting. You gained +1 in rage. Your rage is now {Rage}.");
             _huntCounter = 0; //zerowanie licznika polowan
         }
         else if ((_huntCounter % _rageByHuntModifier == 0 && Rage >= 10) || Rage >= 10) //jeżeli ilość polowan podzielna przez modyfikator ale rage >= max
         {
-            Console.WriteLine($"{Name} is hunting. You reached max rage.");
             _huntCounter = 0; //zerowanie licznika polowan
-        }
-        else
-        {
-            Console.WriteLine($"{Name} is hunting. Hunt {_rageByHuntModifier - _huntCounter} more time(s) to +1 in rage.");
         }
     }
 
@@ -72,8 +66,8 @@ public class Orc : Creature
     }
 
 
-    public override void SayHi()
+    public override string Greeting()
     {
-        Console.WriteLine($"Hi, I'm {Name}, my level is {Level}, my rage is {Rage}.");
+        return $"Hi, I'm {Name}, my level is {Level}, my rage is {Rage}.";
     }
 }

@@ -52,9 +52,9 @@ public abstract class Creature
         //Nic nie wykonuje
     }
 
-    public abstract void SayHi(); //Kod wykomentowany z powodu pojawienia sie metody abstrakcyjnej - for reference only
+    public abstract string Greeting(); //Kod wykomentowany z powodu pojawienia sie metody abstrakcyjnej - for reference only
     //{
-    //    Console.WriteLine($"Hi, I'm {Name}, my level is {Level}.");
+    //    return $"Hi, I'm {Name}, my level is {Level}.";
     //}
 
     public void Upgrade()
@@ -65,24 +65,25 @@ public abstract class Creature
         }
     }
 
-    public void Go(Direction direction) //Metoda GO na pojedynczy ruch stwora
+    public string Go(Direction direction) //Metoda GO na pojedynczy ruch stwora
     {
-        string textToSentense = direction.ToString().ToLower(); //konwersja na string i ma małe litery
-        Console.WriteLine($"{Name} goes {textToSentense}.");
+        return $"{direction.ToString().ToLower()}"; //konwersja na string i ma małe litery
     }
 
-    public void Go(Direction[] directions) //Metoda GO na tablicę ruchów 
+    public string[] Go(Direction[] directions) //Metoda GO na tablicę ruchów 
     {
-        foreach (var direction in directions)
+        string[] goTable = new string[directions.Length];
+        for (int i = 0; i < directions.Length; i++)
         {
-            Go(direction); //wejsciem jest pojedynczy kierunek
+            goTable[i] = Go(directions[i]);
         }
+        return goTable;
     }
 
-    public void Go(string directionInputString) //Metoda GO parsująca string na tabelicę ruchów
+    public string[] Go(string directionInputString) //Metoda GO parsująca string na tabelicę ruchów
     {
         Direction[] directions = DirectionParser.Parse(directionInputString);
-        Go(directions); //wejsciem jest tablica kierunków
+        return Go(directions); //wejsciem jest tablica kierunków
     }
 
     public override string ToString()

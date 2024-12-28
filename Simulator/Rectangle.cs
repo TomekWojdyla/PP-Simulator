@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Simulator
 {
-    internal class Rectangle
+    public class Rectangle
     {
         // Pola publiczne
         public readonly int X1;
