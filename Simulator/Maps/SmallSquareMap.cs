@@ -30,7 +30,6 @@ namespace Simulator.Maps
         public override bool Exist(Point p)
         {
             Rectangle tempRectangle = new(new Point(0, 0), new Point(Size-1, Size-1));
-            //Console.WriteLine(tempRectangle.ToString()); // Kontrolny druk rozmiaru prostokąta
             return tempRectangle.Contains(p);
         }
 
