@@ -30,15 +30,22 @@ namespace Simulator.Maps
         /// <returns>Next point after move or input point if given move takes it outside the map.</returns>
         public override Point Next(Point p, Direction d)
         {
-            // brak sprawdzenia czy podany punkt jest wewnątrz mapy
-            Point pointAfterMove = p.Next(d);
-            if (Exist(pointAfterMove))
+            // Check if point is inside the map
+            if (Exist(p)) // Sprawdzenie tego warunku powtarza sie w 2 metodach w 2 klasach - mozna by wyłączyć?
             {
-                return pointAfterMove;
+                Point pointAfterMove = p.Next(d);
+                if (Exist(pointAfterMove))
+                {
+                    return pointAfterMove;
+                }
+                else
+                {
+                    return p;
+                }
             }
             else
             {
-                return p;
+                throw new ArgumentOutOfRangeException(nameof(p), "Provided point is outside of the map.");
             }
         }
 
@@ -51,15 +58,22 @@ namespace Simulator.Maps
         /// <returns>Next point after move or input point if given move takes it outside the map.</returns>
         public override Point NextDiagonal(Point p, Direction d)
         {
-            // brak sprawdzenia czy podany punkt jest wewnątrz mapy
-            Point pointAfterMove = p.NextDiagonal(d);
-            if (Exist(pointAfterMove))
+            // Check if point is inside the map
+            if (Exist(p)) // Sprawdzenie tego warunku powtarza sie w 2 metodach w 2 klasach - mozna by wyłączyć?
             {
-                return pointAfterMove;
+                Point pointAfterMove = p.NextDiagonal(d);
+                if (Exist(pointAfterMove))
+                {
+                    return pointAfterMove;
+                }
+                else
+                {
+                    return p;
+                }
             }
             else
             {
-                return p;
+                throw new ArgumentOutOfRangeException(nameof(p), "Provided point is outside of the map.");
             }
         }
     }

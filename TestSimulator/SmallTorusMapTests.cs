@@ -92,4 +92,53 @@ public class SmallTorusMapTests
         // Assert
         Assert.Equal(new Point(expectedX, expectedY), nextPoint);
     }
+
+
+    [Theory]
+    [InlineData(5, 5, 5, 3, Direction.Up)]
+    [InlineData(20, 20, 20, 0, Direction.Up)]
+    [InlineData(5, 5, 5, 0, Direction.Up)]
+    [InlineData(5, 5, -1, 0, Direction.Up)]
+    [InlineData(5, 5, 2, 5, Direction.Up)]
+    [InlineData(5, 5, 4, 5, Direction.Left)]
+    [InlineData(20, 10, 20, 0, Direction.Down)]
+    [InlineData(5, 10, 5, 0, Direction.Right)]
+    [InlineData(5, 6, -1, 0, Direction.Down)]
+    [InlineData(6, 5, 2, 5, Direction.Left)]
+    public void
+    Next_ShouldThrowArgumentOutOfRangeExceptionIfGivenPointIsOutsideTheMap
+    (int sizeX, int sizeY, int x, int y, Direction direction)
+    {
+        // Act & Assert
+        var map = new SmallTorusMap(sizeX,sizeY);
+        var point = new Point(x, y);
+
+        // The way to check if method throws anticipated exception:
+        Assert.Throws<ArgumentOutOfRangeException>(() =>
+             map.Next(point, direction));
+    }
+
+    [Theory]
+    [InlineData(5, 5, 5, 3, Direction.Up)]
+    [InlineData(20, 20, 20, 0, Direction.Up)]
+    [InlineData(5, 5, 5, 0, Direction.Up)]
+    [InlineData(5, 5, -1, 0, Direction.Up)]
+    [InlineData(5, 5, 2, 5, Direction.Up)]
+    [InlineData(5, 5, 4, 5, Direction.Left)]
+    [InlineData(20, 10, 20, 0, Direction.Down)]
+    [InlineData(5, 10, 5, 0, Direction.Right)]
+    [InlineData(5, 6, -1, 0, Direction.Down)]
+    [InlineData(5, 5, 2, 5, Direction.Left)]
+    public void
+    NextDiagonal_ShouldThrowArgumentOutOfRangeExceptionIfGivenPointIsOutsideTheMap
+    (int sizeX, int sizeY, int x, int y, Direction direction)
+    {
+        // Act & Assert
+        var map = new SmallTorusMap(sizeX, sizeY);
+        var point = new Point(x, y);
+
+        // The way to check if method throws anticipated exception:
+        Assert.Throws<ArgumentOutOfRangeException>(() =>
+             map.NextDiagonal(point, direction));
+    }
 }
