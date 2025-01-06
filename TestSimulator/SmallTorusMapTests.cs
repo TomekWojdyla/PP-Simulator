@@ -141,4 +141,84 @@ public class SmallTorusMapTests
         Assert.Throws<ArgumentOutOfRangeException>(() =>
              map.NextDiagonal(point, direction));
     }
+
+    [Theory]
+    [InlineData(5, 2, 2)]
+    [InlineData(20, 7, 7)]
+    public void
+    Add_ShouldInitiateCreatureInTheMapAndAssignCreatureToMap
+    (int size, int x, int y)
+    {
+        // Arrange
+        var creature = new Elf("Elandor");
+        var map = new SmallTorusMap(size, size);
+        var point = new Simulator.Point(x, y);
+        // Act
+        map.Add(creature, point);
+        // Assert
+        Assert.Equal(creature.Map, map);
+        Assert.Equal(creature.Position, point);
+        Assert.Equal($"The creatures in point {point} are as follows: Elandor", map.At(point));
+    }
+
+    [Theory]
+    [InlineData(5, 2, 2)]
+    [InlineData(20, 7, 7)]
+    public void
+    Add_ShouldBeAbleToAddMoreThanOneCreatureInTheSamePoint
+    (int size, int x, int y)
+    {
+        // Arrange
+        var creature1 = new Elf("Elandor");
+        var creature2 = new Orc("Ictorn");
+        var map = new SmallTorusMap(size, size);
+        var point = new Simulator.Point(x, y);
+        // Act
+        map.Add(creature1, point);
+        map.Add(creature2, point);
+        // Assert
+        Assert.Equal(creature1.Map, map);
+        Assert.Equal(creature1.Position, point);
+        Assert.Equal(creature2.Map, map);
+        Assert.Equal(creature2.Position, point);
+        Assert.Equal($"The creatures in point {point} are as follows: Elandor, Ictorn", map.At(point));
+    }
+
+    [Theory]
+    [InlineData(5, 5, 5)]
+    [InlineData(20, 20, 10)]
+    [InlineData(7, -2, 1)]
+    [InlineData(5, 3, 5)]
+    public void
+    Add_CannotAddCreatureOutsideOftheMap
+    (int size, int x, int y)
+    {
+        // Arrange
+        var creature1 = new Elf("Elandor");
+        var map = new SmallTorusMap(size,size);
+        var point = new Simulator.Point(x, y);
+        // Act
+        // Assert
+        Assert.Throws<ArgumentException>(() =>
+             map.Add(creature1, point));
+    }
+
+    [Theory]
+    [InlineData(5, 2, 2)]
+    [InlineData(20, 7, 7)]
+    public void
+    Remove_ShouldRemoveCreaturesFromMap
+    (int size, int x, int y)
+    {
+        // Arrange
+        var creature = new Elf("Elandor");
+        var map = new SmallTorusMap(size,size);
+        var point = new Simulator.Point(x, y);
+        map.Add(creature, point);
+        // Act
+        map.Remove(creature, point);
+        // Assert
+        Assert.Null(creature.Map);
+        Assert.Equal($"There is no creature in the indicated point {point}.", map.At(point));
+    }
 }

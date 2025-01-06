@@ -8,25 +8,31 @@ internal class Program
     static void Main(string[] args)
     {
         Console.WriteLine("Starting Simulator!\n");
-        Lab4b();
-    }
 
-    public static void Lab4b()
-    {
-        object[] myObjects = {
-            new Animals() { Description = "dogs"},
-            new Birds { Description = "  eagles ", Size = 10 },
-            new Elf("e", 15, -3),
-            new Orc("morgash", 6, 4)
-           };
-        Console.WriteLine("\nMy objects:");
-        foreach (var o in myObjects) Console.WriteLine(o);
-        /*
-            My objects:
-            ANIMALS: Dogs <3>
-            BIRDS: Eagles (fly+) <10>
-            ELF: E## [10][0]
-            ORC: Morgash [6][4]
-        */
+        var a = new Elf("Elandor", 7, 8);
+        Console.WriteLine(a.Go(Direction.Right));
+
+        var TestowaMapa = new SmallSquareMap(5);
+        var TestowyPunkt = new Point(1, 1);
+        a.InitMapAndPosition(TestowaMapa, TestowyPunkt);
+        Console.WriteLine(TestowaMapa.At(TestowyPunkt));
+        Console.WriteLine(TestowaMapa.At(6, 6));
+
+        var InnyTestowyPunkt = new Point(2, 2);
+        var o = new Orc("Shrek", 7, 8);
+        var g = new Orc("Goblin", 1, 1);
+        TestowaMapa.Add(o, InnyTestowyPunkt);
+        TestowaMapa.Add(g, InnyTestowyPunkt);
+        Console.WriteLine(TestowaMapa.At(2, 2));
+
+
+        TestowaMapa.Remove(a, TestowyPunkt);
+        Console.WriteLine(TestowaMapa.At(TestowyPunkt));
+
+
+        o.Go(Direction.Right);
+        var InnyTestowyPunkt2 = new Point(3, 2);
+        Console.WriteLine(TestowaMapa.At(2, 2));
+        Console.WriteLine(TestowaMapa.At(InnyTestowyPunkt2));
     }
 }

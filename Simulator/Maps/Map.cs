@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -70,4 +71,48 @@ public abstract class Map
     /// <param name="d">Direction.</param>
     /// <returns>Next point.</returns>
     public abstract Point NextDiagonal(Point p, Direction d);
+
+    /// <summary>
+    /// Adds indicated creature to the map in the given point.
+    /// </summary>
+    /// <param name="creature">Creature to add to map.</param>
+    /// <param name="point">Starting point of creature in the map.</param>
+    /// <returns>N/A - Creature added to the map.</returns>
+    public abstract void Add(Creature creature, Point point);
+
+    /// <summary>
+    /// Removes creature from indicated point from the map.
+    /// </summary>
+    /// <param name="creature">Creature to remove from the map.</param>
+    /// <param name="point">Point from where creature should be removed from.</param>
+    /// <returns>N/A - Creature added to the map.</returns>
+    public abstract void Remove(Creature creature, Point point);
+
+    /// <summary>
+    /// Moving Creature in the map.
+    /// </summary>
+    /// <param name="creature">Creature to move.</param>
+    /// <param name="startPoint">Starting position of creature.</param>
+    /// <param name="endPoint">Target position of creature.</param>
+    /// <returns>N/A - Creature moved between indicated points.</returns>
+    public void Move(Creature creature, Point startPoint, Point endPoint)
+    {
+        Remove(creature, startPoint); // check if creature was in this point before adding? 
+        Add(creature, endPoint);
+    }
+
+    /// <summary>
+    /// Checks what creatures are in the indicated point of map (x, y).
+    /// </summary>
+    /// <param name="x">X coordinate of point in map.</param>
+    /// <param name="y">Y coordinate of point in map.</param>
+    /// <returns>N/A - Creature added to the map.</returns>
+    public abstract string At(int x, int y);
+
+    /// <summary>
+    /// Checks what creatures are in the indicated point of map (Point).
+    /// </summary>
+    /// <param name="point">Point where to look for list of creatures in the map.</param>
+    /// <returns>List(string) of creatures in indicated point.</returns>
+    public abstract string At(Point point);
 }
