@@ -6,30 +6,14 @@ using System.Threading.Tasks;
 
 namespace Simulator.Maps;
 
-public class SmallTorusMap : Map
+public class SmallTorusMap : SmallMap
 {
-    // Właściwości
-    public int Size { get; }
-
-    public SmallTorusMap(int size)
-    {
-        if (size < 5 || size > 20)
-        {
-            throw new ArgumentOutOfRangeException(nameof(size), "For SmallTorusMap size needs to be in the range [5, 20]"); //wyjątek -> wymiar mapy nie pasuje do założeń
-        }
-        Size = size;
-    }
-
     /// <summary>
-    /// Check if given point belongs to the map.
-    /// Map contains points from (0,0) to (Size-1, Size-1). Coordinates that equals 'Size' are outside the map!
+    /// SmallTorusMap constructor. Map size needs to be in range [5,20] for each direction. Can be rectangular.
+    /// Torus behavior - objects are transfering to oposite edge when exiting map while move.
     /// </summary>
-    /// <param name="p">Point to check.</param>
-    /// <returns>Bool: True/False</returns>
-    public override bool Exist(Point p)
+    public SmallTorusMap(int sizeX, int sizeY) : base (sizeX, sizeY) 
     {
-        Rectangle tempRectangle = new(new Point(0, 0), new Point(Size - 1, Size - 1));
-        return tempRectangle.Contains(p);
     }
 
     /// <summary>
@@ -55,9 +39,9 @@ public class SmallTorusMap : Map
                 case (Direction.Right):
                     return new Point(0, p.Y);
                 case (Direction.Down): 
-                    return new Point(p.X, Size - 1);
+                    return new Point(p.X, SizeY - 1);
                 case (Direction.Left):
-                    return new Point(Size - 1, p.Y);
+                    return new Point(SizeY - 1, p.Y);
                 default:
                     return p;
             }
@@ -83,13 +67,13 @@ public class SmallTorusMap : Map
             switch (d)
             {
                 case (Direction.Up):
-                    return new Point((p.X + 1) % Size, (p.Y + 1) % Size); // Modulo przeniesie punkt na początek krawedzi (reszta z dzielenia)
+                    return new Point((p.X + 1) % SizeY, (p.Y + 1) % SizeY); // Modulo przeniesie punkt na początek krawedzi (reszta z dzielenia)
                 case (Direction.Right):
-                    return new Point((p.X + 1) % Size, (p.Y - 1 + Size) % Size); // + Size kiedy odejmuję 1 aby uniknąć liczb ujemnych, w połączeniu z Modulo nie wpływa na wynik
+                    return new Point((p.X + 1) % SizeX, (p.Y - 1 + SizeX) % SizeX); // + Size kiedy odejmuję 1 aby uniknąć liczb ujemnych, w połączeniu z Modulo nie wpływa na wynik
                 case (Direction.Down):
-                    return new Point((p.X - 1 + Size) % Size, (p.Y - 1 + Size) % Size);
+                    return new Point((p.X - 1 + SizeY) % SizeY, (p.Y - 1 + SizeY) % SizeY);
                 case (Direction.Left):
-                    return new Point((p.X - 1 + Size) % Size, (p.Y + 1) % Size);
+                    return new Point((p.X - 1 + SizeX) % SizeX, (p.Y + 1) % SizeX);
                 default:
                     return p;
             }

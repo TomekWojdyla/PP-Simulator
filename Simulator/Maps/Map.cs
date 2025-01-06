@@ -12,11 +12,47 @@ namespace Simulator.Maps;
 public abstract class Map
 {
     /// <summary>
+    /// Horizontal map size.
+    /// </summary>
+    public int SizeX { get; init; }
+
+    /// <summary>
+    /// Vertical map size.
+    /// </summary>
+    public int SizeY { get; init; }
+
+    /// <summary>
+    /// Rectangle created out of map dimensions. Always start in (0,0) and ends in (SizeX-1, SizeY-1).
+    /// </summary>
+    private readonly Rectangle _map;
+
+    /// <summary>
+    /// Map constructor. Map cannot be smaller than 5 units each direction.
+    /// </summary>
+    public Map(int sizeX, int sizeY)
+    {
+        if (sizeX < 5)
+        {
+            throw new ArgumentOutOfRangeException(nameof(sizeX), "Map size cannot be smaller than 5"); //wyjątek -> wymiar mapy nie pasuje do założeń
+        }
+        else if (sizeY < 5)
+        {
+            throw new ArgumentOutOfRangeException(nameof(sizeY), "Map size cannot be smaller than 5"); //wyjątek -> wymiar mapy nie pasuje do założeń
+        }
+        SizeX = sizeX;
+        SizeY = sizeY;
+        _map = new Rectangle(0, 0, SizeX - 1, SizeY - 1);
+    }
+
+    /// <summary>
     /// Check if given point belongs to the map.
     /// </summary>
     /// <param name="p">Point to check.</param>
     /// <returns></returns>
-    public abstract bool Exist(Point p);
+    public bool Exist(Point p)
+    {
+        return _map.Contains(p);
+    }
 
     /// <summary>
     /// Next position to the point in a given direction.
