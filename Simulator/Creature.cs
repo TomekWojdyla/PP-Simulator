@@ -82,7 +82,7 @@ public abstract class Creature
 
     public string[] Go(string directionInputString) //Metoda GO parsująca string na tabelicę ruchów
     {
-        Direction[] directions = DirectionParser.Parse(directionInputString);
+        Direction[] directions = DirectionParser.Parse(directionInputString).ToArray();
         return Go(directions); //wejsciem jest tablica kierunków
     }
 

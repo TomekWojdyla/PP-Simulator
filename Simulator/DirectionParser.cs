@@ -8,7 +8,13 @@ namespace Simulator;
 
 public static class DirectionParser
 {
-    public static Direction[] Parse(string directionInputString)
+    /// <summary>
+    /// Replaces a random string to list of directions based on first letters.
+    /// Ignores chars in string that has no direction meaning.
+    /// </summary>
+    /// <param name="directionInputString"></param>
+    /// <returns>List of directions</Direction> </returns>
+    public static List<Direction> Parse(string directionInputString)
     {
         List<Direction> result = new List<Direction>();
 
@@ -30,6 +36,6 @@ public static class DirectionParser
                     break;
             }
         }
-        return result.ToArray();
+        return result;
     }
 }
