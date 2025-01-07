@@ -115,4 +115,11 @@ public abstract class Map
     /// <param name="point">Point where to look for list of creatures in the map.</param>
     /// <returns>List(string) of creatures in indicated point.</returns>
     public abstract string At(Point point);
+
+    /// <summary>
+    /// Checks what creatures are in the indicated point of map (Point).
+    /// </summary>
+    /// <param name="point">Point where to look for list of creatures in the map.</param>
+    /// <returns>List<Creature> in indicated point.</returns>
+    public abstract List<Creature> ListOfCreaturesAt(int x, int y);
 }

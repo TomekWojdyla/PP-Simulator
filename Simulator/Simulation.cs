@@ -53,6 +53,17 @@ public class Simulation
     }
 
     /// <summary>
+    /// Number of current turn (starting from 1). Used in SimConsole display.
+    /// </summary>
+    public int CurrentTurnNumber
+    {
+        get
+        {
+            return _currentTurnIndex + 1;
+        }
+    }
+
+    /// <summary>
     /// List of moves parsed to a table of directions.
     /// </summary>
     private List<Direction> _directionListForSimulation // dla cztelności kodu - tablica sparsowana kierunków ruchów w kolejnych kolejkach => ilość kolejek 

@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -35,14 +37,14 @@ public abstract class SmallMap : Map
         }
         else // punkt należy do mapy
         {
-            if (_fields[point.X, point.Y] != null && _fields[point.X, point.Y].Count != 0) 
+            if (_fields[point.X, point.Y] != null && _fields[point.X, point.Y].Count != 0)
             {
                 _fields[point.X, point.Y].Add(creature); // Lista creatuerów w tym punkcie już istnieje
             }
             else
             {
                 var lista = new List<Creature> { creature }; // Lista w tym punkcie jeszcze nie istnieje - inicjuję listę.
-                _fields[point.X, point.Y] = lista; 
+                _fields[point.X, point.Y] = lista;
             }
             creature.InitMapAndPosition(this, point, true);
         }
@@ -79,7 +81,7 @@ public abstract class SmallMap : Map
                     listaStworow += creatureName + ", ";
                 }
 
-                return $"The creatures in point {point} are as follows: {listaStworow.Substring(0, listaStworow.Length-2)}";
+                return $"The creatures in point {point} are as follows: {listaStworow.Substring(0, listaStworow.Length - 2)}";
             }
             else
             {
@@ -92,5 +94,26 @@ public abstract class SmallMap : Map
     {
         var point = new Point(x, y);
         return this.At(point);
+    }
+
+    public override List<Creature> ListOfCreaturesAt(int x, int y) // Możnaby zmienić istniejące metody At aby zwracały listę, ale nie chcę rezygnować z już istniejących.
+    {
+        var point = new Point(x, y);
+        if (this.Exist(point) == false)
+        {
+            return new List<Creature> { };
+        }
+        else
+        {
+            var listOfCreaturesInPoint = _fields[x, y];
+            if (listOfCreaturesInPoint != null && listOfCreaturesInPoint.Count != 0)
+            {
+                return listOfCreaturesInPoint;
+            }
+            else
+            {
+                return new List<Creature> { };
+            }
+        }
     }
 }

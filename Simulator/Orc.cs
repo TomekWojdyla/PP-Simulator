@@ -13,6 +13,11 @@ public class Orc : Creature
     private int _huntCounter = 0; // licznik polowan: początkowo = 0
     private int _rageByHuntModifier = 2; // modyfikator: co ile polowan rośnie rage
 
+    /// <summary>
+    /// Orc symbol to be displayed in SimConsole.
+    /// </summary>
+    public override char MapSymbol => 'O'; 
+
     //Właściwości + gettery/settery
     public override int Power
     {

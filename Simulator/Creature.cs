@@ -65,6 +65,11 @@ public abstract class Creature
         }
     }
 
+    /// <summary>
+    /// Expected creature symbol to be displayed in SimConsole. Specific value to be added for Inheriting classes.
+    /// </summary>
+    public abstract char MapSymbol { get; } // Dodaję tutaj aby mieć większą pewność że bedzie doimplementowana w klasach dziedziczących
+
     //Konstruktor parametryczny
     /// <summary>
     /// Constructor of Creature based on provided name and level (def = 1).

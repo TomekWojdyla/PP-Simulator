@@ -13,6 +13,11 @@ public class Elf : Creature
     private int _singCounter = 0; // licznik śpiewu: początkowo = 0
     private int _agilityBySingModifier = 3; // modyfikator: co ile śpiewów rośnie agility
 
+    /// <summary>
+    /// Elf symbol to be displayed in SimConsole.
+    /// </summary>
+    public override char MapSymbol => 'E'; // for SimConsole
+
     //Właściwości + gettery/settery
     public override int Power
     {
