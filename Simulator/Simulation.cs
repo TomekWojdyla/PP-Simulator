@@ -86,11 +86,11 @@ public class Simulation
         List<Point> positions, string moves)
     {
         Map = map;
-        if (creatures.Count == 0) // Validacja dla pustego stringu stworów
+        if (creatures.Count == 0) // Walidacja dla pustego stringu stworów
         {
             throw new ArgumentException("List of Creatures cannot be empty", nameof(creatures));
         }
-        else if (creatures.Count != positions.Count) // Validacja dla różnej ilosci stworów i pozycji (to załatwia też pustą listę pozycji)
+        else if (creatures.Count != positions.Count) // Walidacja dla różnej ilosci stworów i pozycji (to załatwia też pustą listę pozycji)
         {
             throw new ArgumentException("Number of creatures and their starting positions must match", nameof(positions));
         }

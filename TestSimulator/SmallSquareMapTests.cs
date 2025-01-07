@@ -258,4 +258,76 @@ public class SmallSquareMapTests
         Assert.Equal(endPoint, creature.Position);
         Assert.Equal(map, creature.Map);
     }
+
+    [Theory]
+    [InlineData(5, 2, 2, 5, 5)]
+    [InlineData(20, 7, 7, 7, 20)]
+    [InlineData(7, 0, 0, -1, 3)]
+    public void
+    AtPoint_ShouldReturnExpectedStringWhenPointIsNotInTheMap
+    (int size, int x, int y, int x2, int y2)
+    {
+        // Arrange
+        var creature = new Elf("Elandor");
+        var map = new SmallSquareMap(size);
+        var point = new Simulator.Point(x, y);
+        var point2 = new Simulator.Point(x2, y2);
+        map.Add(creature, point);
+        // Act
+        // Assert
+        Assert.Equal($"Point {point2} does not belong to the map.", map.At(point2));
+    }
+
+    [Theory]
+    [InlineData(5, 2, 2, 2, 1)]
+    [InlineData(20, 7, 7, 0, 0)]
+    [InlineData(7, 0, 0, 1, 0)]
+    public void
+    AtPoint_ShouldReturnExpectedStringWhenThereAIsNoCreatureInPoint
+    (int size, int x, int y, int x2, int y2)
+    {
+        // Arrange
+        var creature = new Elf("Elandor");
+        var map = new SmallSquareMap(size);
+        var point = new Simulator.Point(x, y);
+        var point2 = new Simulator.Point(x2, y2);
+        map.Add(creature, point);
+        // Act
+        // Assert
+        Assert.Equal($"There is no creature in the indicated point {point2}.", map.At(point2));
+    }
+
+    [Theory]
+    [InlineData(5, 2, 2)]
+    [InlineData(20, 7, 7)]
+    public void
+    AtPoint_ShouldReturnExpectedStringWhenThereAreCreaturesInPoint
+    (int size, int x, int y)
+    {
+        // Arrange
+        var creature = new Elf("Elandor");
+        var map = new SmallSquareMap(size);
+        var point = new Simulator.Point(x, y);
+        // Act
+        map.Add(creature, point);
+        // Assert
+        Assert.Equal($"The creatures in point {point} are as follows: Elandor", map.At(point));
+    }
+
+    [Theory]
+    [InlineData(5, 2, 2)]
+    [InlineData(20, 7, 7)]
+    public void
+    AtCoordinates_ShouldReturnExpectedStringWhenThereAreCreaturesInPoint
+    (int size, int x, int y)
+    {
+        // Arrange
+        var creature = new Elf("Elandor");
+        var map = new SmallSquareMap(size);
+        var point = new Simulator.Point(x, y);
+        // Act
+        map.Add(creature, point);
+        // Assert
+        Assert.Equal($"The creatures in point {point} are as follows: Elandor", map.At(x,y));
+    }
 }
