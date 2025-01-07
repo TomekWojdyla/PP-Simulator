@@ -7,7 +7,7 @@ using Simulator.Maps;
 
 namespace Simulator;
 
-public abstract class Creature
+public abstract class Creature : IMappable
 {
     //Pola Prywatne
     private string _name = "Unknown"; //konwencja nazywania pól prywatnych _camelCase

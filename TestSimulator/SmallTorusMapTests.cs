@@ -158,7 +158,7 @@ public class SmallTorusMapTests
         // Assert
         Assert.Equal(creature.Map, map);
         Assert.Equal(creature.Position, point);
-        Assert.Equal($"The creatures in point {point} are as follows: Elandor", map.At(point));
+        Assert.Equal($"The creatures in point {point} are as follows: Elandor", map.StringListAt(point.X, point.Y));
     }
 
     [Theory]
@@ -181,7 +181,7 @@ public class SmallTorusMapTests
         Assert.Equal(creature1.Position, point);
         Assert.Equal(creature2.Map, map);
         Assert.Equal(creature2.Position, point);
-        Assert.Equal($"The creatures in point {point} are as follows: Elandor, Ictorn", map.At(point));
+        Assert.Equal($"The creatures in point {point} are as follows: Elandor, Ictorn", map.StringListAt(point.X, point.Y));
     }
 
     [Theory]
@@ -219,6 +219,6 @@ public class SmallTorusMapTests
         map.Remove(creature, point);
         // Assert
         Assert.Null(creature.Map);
-        Assert.Equal($"There is no creature in the indicated point {point}.", map.At(point));
+        Assert.Equal($"There is no creature in the indicated point {point}.", map.StringListAt(point.X, point.Y));
     }
 }

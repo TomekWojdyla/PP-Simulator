@@ -173,7 +173,7 @@ public class SmallSquareMapTests
         // Assert
         Assert.Equal(creature.Map, map);
         Assert.Equal(creature.Position, point);
-        Assert.Equal($"The creatures in point {point} are as follows: Elandor", map.At(point));
+        Assert.Equal($"The creatures in point {point} are as follows: Elandor", map.StringListAt(point.X, point.Y));
     }
 
     [Theory]
@@ -196,7 +196,7 @@ public class SmallSquareMapTests
         Assert.Equal(creature1.Position, point);
         Assert.Equal(creature2.Map, map);
         Assert.Equal(creature2.Position, point);
-        Assert.Equal($"The creatures in point {point} are as follows: Elandor, Ictorn", map.At(point));
+        Assert.Equal($"The creatures in point {point} are as follows: Elandor, Ictorn", map.StringListAt(point.X, point.Y));
     }
 
     [Theory]
@@ -234,7 +234,7 @@ public class SmallSquareMapTests
         map.Remove(creature, point);
         // Assert
         Assert.Null(creature.Map);
-        Assert.Equal($"There is no creature in the indicated point {point}.", map.At(point));
+        Assert.Equal($"There is no creature in the indicated point {point}.", map.StringListAt(point.X, point.Y));
     }
 
     [Theory]
@@ -253,8 +253,8 @@ public class SmallSquareMapTests
         // Act
         map.Move(creature, startingPoint, endPoint);
         // Assert
-        Assert.Equal($"There is no creature in the indicated point {startingPoint}.", map.At(startingPoint));
-        Assert.Equal($"The creatures in point {endPoint} are as follows: Elandor", map.At(endPoint));
+        Assert.Equal($"There is no creature in the indicated point {startingPoint}.", map.StringListAt(startingPoint.X, startingPoint.Y));
+        Assert.Equal($"The creatures in point {endPoint} are as follows: Elandor", map.StringListAt(endPoint.X, endPoint.Y));
         Assert.Equal(endPoint, creature.Position);
         Assert.Equal(map, creature.Map);
     }
@@ -275,7 +275,7 @@ public class SmallSquareMapTests
         map.Add(creature, point);
         // Act
         // Assert
-        Assert.Equal($"Point {point2} does not belong to the map.", map.At(point2));
+        Assert.Equal($"Point {point2} does not belong to the map.", map.StringListAt(point2.X, point2.Y));
     }
 
     [Theory]
@@ -294,7 +294,7 @@ public class SmallSquareMapTests
         map.Add(creature, point);
         // Act
         // Assert
-        Assert.Equal($"There is no creature in the indicated point {point2}.", map.At(point2));
+        Assert.Equal($"There is no creature in the indicated point {point2}.", map.StringListAt(point2.X, point2.Y));
     }
 
     [Theory]
@@ -311,7 +311,7 @@ public class SmallSquareMapTests
         // Act
         map.Add(creature, point);
         // Assert
-        Assert.Equal($"The creatures in point {point} are as follows: Elandor", map.At(point));
+        Assert.Equal($"The creatures in point {point} are as follows: Elandor", map.StringListAt(point.X, point.Y));
     }
 
     [Theory]
@@ -328,6 +328,6 @@ public class SmallSquareMapTests
         // Act
         map.Add(creature, point);
         // Assert
-        Assert.Equal($"The creatures in point {point} are as follows: Elandor", map.At(x,y));
+        Assert.Equal($"The creatures in point {point} are as follows: Elandor", map.StringListAt(point.X, point.Y));
     }
 }

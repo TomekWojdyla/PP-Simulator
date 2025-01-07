@@ -86,7 +86,7 @@ public class MapVisualizer
             dataRows[y] = Box.Vertical.ToString(); // dodanie sybolu krawedzi kolumny -> pierwszy char inicjujący string potrzebuje metody ToString
             for (int x = 0; x < Map.SizeX; x++) // ilość kolumn taka jak rozmiar mapy w poziomie
             {
-                List<Creature> creaturesInPoint = this.Map.ListOfCreaturesAt(x, y);
+                List<IMappable> creaturesInPoint = this.Map.At(x, y);
                 if (creaturesInPoint == null || creaturesInPoint.Count == 0) // jeżeli lista stworów w punkcie jest pusta
                 {
                     dataRows[y] += " ";

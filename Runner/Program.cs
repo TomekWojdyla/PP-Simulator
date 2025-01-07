@@ -37,7 +37,7 @@ internal class Program
 
 
         SmallSquareMap map = new(5);
-        List<Creature> creatures = [new Orc("Gorbag"), new Elf("Elandor")];
+        List<IMappable> creatures = [new Orc("Gorbag"), new Elf("Elandor")];
         List<Point> points = [new(2, 2), new(3, 1)];
         string moves = "dlrludl";
 

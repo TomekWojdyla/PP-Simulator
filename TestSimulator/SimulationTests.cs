@@ -16,7 +16,7 @@ public class SimulationTests
         // Arrange
         var map = new SmallSquareMap(5);
         var e = new Elf("Elandor");
-        var creatures = new List<Creature> { e, new Orc("Shrek") };
+        var creatures = new List<IMappable> { e, new Orc("Shrek") };
         var point = new Point(1, 1);
         var positions = new List<Simulator.Point> { point, new Point(2, 2) };
         var moves = new string("ldgrhu");
@@ -38,7 +38,7 @@ public class SimulationTests
         // Arrange
         var map = new SmallSquareMap(5);
         var e = new Elf("Elandor");
-        var creatures = new List<Creature> { };
+        var creatures = new List<IMappable> { };
         var point = new Point(1, 1);
         var positions = new List<Simulator.Point> { point, new Point(2, 2) };
         var moves = new string("ldgrhu");
@@ -54,7 +54,7 @@ public class SimulationTests
         // Arrange
         var map = new SmallSquareMap(5);
         var e = new Elf("Elandor");
-        var creatures = new List<Creature> { e };
+        var creatures = new List<IMappable> { e };
         var point = new Point(1, 1);
         var positions = new List<Simulator.Point> { point, new Point(2, 2) };
         var moves = new string("ldgrhu");
@@ -71,7 +71,7 @@ public class SimulationTests
         var map = new SmallSquareMap(5);
         var e = new Elf("Elandor");
         var o = new Orc("Shrek");
-        var creatures = new List<Creature> { e, o };
+        var creatures = new List<IMappable> { e, o };
         var point = new Point(1, 1);
         var positions = new List<Simulator.Point> { point, new Point(2, 2) };
         var moves = new string("ldgrhu");
@@ -98,7 +98,7 @@ public class SimulationTests
         var map = new SmallSquareMap(5);
         var e = new Elf("Elandor");
         //var o = new Orc("Shrek");
-        var creatures = new List<Creature> { e};
+        var creatures = new List<IMappable> { e};
         var point = new Point(1, 1);
         var positions = new List<Simulator.Point> { point };
         var moves = new string("d");

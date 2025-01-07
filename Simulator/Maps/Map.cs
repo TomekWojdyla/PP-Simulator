@@ -78,7 +78,7 @@ public abstract class Map
     /// <param name="creature">Creature to add to map.</param>
     /// <param name="point">Starting point of creature in the map.</param>
     /// <returns>N/A - Creature added to the map.</returns>
-    public abstract void Add(Creature creature, Point point);
+    public abstract void Add(IMappable mappable, Point point);
 
     /// <summary>
     /// Removes creature from indicated point from the map.
@@ -86,7 +86,7 @@ public abstract class Map
     /// <param name="creature">Creature to remove from the map.</param>
     /// <param name="point">Point from where creature should be removed from.</param>
     /// <returns>N/A - Creature added to the map.</returns>
-    public abstract void Remove(Creature creature, Point point);
+    public abstract void Remove(IMappable mappable, Point point);
 
     /// <summary>
     /// Moving Creature in the map.
@@ -95,10 +95,10 @@ public abstract class Map
     /// <param name="startPoint">Starting position of creature.</param>
     /// <param name="endPoint">Target position of creature.</param>
     /// <returns>N/A - Creature moved between indicated points.</returns>
-    public void Move(Creature creature, Point startPoint, Point endPoint)
+    public void Move(IMappable mappable, Point startPoint, Point endPoint)
     {
-        Remove(creature, startPoint); // check if creature was in this point before adding? 
-        Add(creature, endPoint);
+        Remove(mappable, startPoint); // check if creature was in this point before adding? 
+        Add(mappable, endPoint);
     }
 
     /// <summary>
@@ -106,20 +106,20 @@ public abstract class Map
     /// </summary>
     /// <param name="x">X coordinate of point in map.</param>
     /// <param name="y">Y coordinate of point in map.</param>
-    /// <returns>N/A - Creature added to the map.</returns>
-    public abstract string At(int x, int y);
+    /// <returns>List<IMappable> of creatures in indicated point.</returns>
+    public abstract List<IMappable> At(int x, int y);
 
     /// <summary>
     /// Checks what creatures are in the indicated point of map (Point).
     /// </summary>
     /// <param name="point">Point where to look for list of creatures in the map.</param>
-    /// <returns>List(string) of creatures in indicated point.</returns>
-    public abstract string At(Point point);
+    /// <returns>List<IMappable> of creatures in indicated point.</returns>
+    public abstract List<IMappable> At(Point point);
 
     /// <summary>
     /// Checks what creatures are in the indicated point of map (Point).
     /// </summary>
     /// <param name="point">Point where to look for list of creatures in the map.</param>
-    /// <returns>List<Creature> in indicated point.</returns>
-    public abstract List<Creature> ListOfCreaturesAt(int x, int y);
+    /// <returns>List(string) in indicated point.</returns>
+    public abstract string StringListAt(int x, int y);
 }

@@ -29,7 +29,7 @@ public class CreatureTests
         // Assert
         Assert.Equal(a.Map, map);
         Assert.Equal(a.Position, point);
-        Assert.Equal($"The creatures in point {point} are as follows: Elandor", map.At(x,y));
+        Assert.Equal($"The creatures in point {point} are as follows: Elandor", map.StringListAt(point.X, point.Y));
     }
 
 

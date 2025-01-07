@@ -19,7 +19,7 @@ public class MapVIsualizerTests
         var map = new SmallSquareMap(5);
         var e = new Elf("Elandor");
         var o = new Orc("Shrek");
-        var creatures = new List<Creature> { e, o };
+        var creatures = new List<IMappable> { e, o };
         var positions = new List<Simulator.Point> { new Point(1, 2), new Point(2, 2) };
         var moves = new string("ldgrhu");
         var sim = new Simulation(map, creatures, positions, moves);
@@ -41,7 +41,7 @@ public class MapVIsualizerTests
         var map = new SmallSquareMap(5);
         var e = new Elf("Elandor");
         var o = new Orc("Shrek");
-        var creatures = new List<Creature> { e, o };
+        var creatures = new List<IMappable> { e, o };
         var positions = new List<Simulator.Point> { new Point(x1, y1), new Point(x2, y2) };
         var moves = new string("ldgrhu");
         var sim = new Simulation(map, creatures, positions, moves);
