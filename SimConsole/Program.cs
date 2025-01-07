@@ -11,18 +11,31 @@ internal class Program
         //Console.OutputEncoding = Encoding.UTF8; // Wygląda na niepotrzebne?
         Console.WriteLine("SIMULATION!\n");
 
-        SmallSquareMap map = new(5);
-        List<IMappable> creatures = [new Orc("Gorbag"), new Elf("Elandor")];
-        List<Simulator.Point> points = [new(2, 2), new(3, 1)];
-        string moves = "dlrludl";
+
+        //   MAPA SQUARE 5x5 
+        //SmallSquareMap map = new(5);
+        //List<IMappable> creatures = [new Orc("Gorbag"), new Elf("Elandor")];
+        //List<Simulator.Point> points = [new(2, 2), new(3, 1)];
+        //string moves = "dlrludl";
+
+        //Simulation simulation = new(map, creatures, points, moves);
+        //MapVisualizer mapVisualizer = new(simulation.Map);
+
+
+        //   MAPA TORUS 8x6 -> stwory i ruchy jak w projekie DEMO RAZOR PAGES
+        SmallTorusMap map = new(8, 6);
+        List<IMappable> creatures = [new Orc("Gorbag"), new Elf("Elandor"),
+            new Animals() { Description = "Rabbits" , Size = 40}, new Birds() { Description = "Eagles"}, new Birds() {Description = "Ostriches", Size = 15, CanFly = false}];
+        List<Simulator.Point> points = [new(2, 2), new(3, 1), new(5, 5), new(7, 3), new(0, 4)];
+        string moves = "dlrludluddlrulr";
 
         Simulation simulation = new(map, creatures, points, moves);
         MapVisualizer mapVisualizer = new(simulation.Map);
 
         Console.WriteLine("Created Creatures in map:");
-        foreach (Creature creature in creatures)
+        foreach (IMappable mappable in creatures)
         {
-            Console.WriteLine(creature.ToString());
+            Console.WriteLine(mappable.ToString());
         }
         Console.WriteLine("\nStarting Positions:");
 
