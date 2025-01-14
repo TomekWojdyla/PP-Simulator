@@ -117,6 +117,13 @@ public abstract class Map
     public abstract List<IMappable> At(Point point);
 
     /// <summary>
+    /// Checks what obstacles are in the indicated point of map (Point).
+    /// </summary>
+    /// <param name="point">Point where to look for list of obstacles in the map.</param>
+    /// <returns>List<IMappable> of obstacles in indicated point.</returns>
+    public abstract List<IMappable> ObstaclesAt(Point point);
+
+    /// <summary>
     /// Checks what creatures are in the indicated point of map (Point).
     /// </summary>
     /// <param name="point">Point where to look for list of creatures in the map.</param>

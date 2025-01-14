@@ -26,6 +26,19 @@ public class IndexModel : PageModel
         Simulation = new Simulation(map, creatures, creaturePoints, simulationMoves);
 
 
+        //SmallTorusMap map = new(8, 6);
+        //List<IMappable> creatures = [new Orc("Gorbag"), new Elf("Elandor"), new Animals() { Description = "Rabbits" }];
+        //List<Simulator.Point> points = [new Simulator.Point(2, 1), new Simulator.Point(2, 3), new Simulator.Point(4, 4)];
+        //string moves = "rdlrrruuuurrr";
+
+        //List<IMappable> staticObstacles = [new StaticObstacle("Mountain", NaturalElement.Earth), new StaticObstacle("River", NaturalElement.Water),
+        //    new StaticObstacle("River", NaturalElement.Water), new StaticObstacle("River", NaturalElement.Water),new StaticObstacle("Mist", NaturalElement.Air)];
+        //List<Simulator.Point> obstaclePoints = [new(2, 2), new(3, 5), new(3, 4), new(3, 3), new(5, 4)];
+
+
+        //Simulation Simulation = new(map, creatures, points, moves, staticObstacles, obstaclePoints);
+
+
         foreach (IMappable mappable in creatures)
         {
             CreaturesInMap += mappable.ToString() + " ; ";

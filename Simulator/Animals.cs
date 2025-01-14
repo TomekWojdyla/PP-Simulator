@@ -29,7 +29,9 @@ public class Animals : IMappable
     public uint Size { get; set; } = 3;
 
     public virtual string Info { get; }
-    
+
+    public bool IsLost { get; set; } = false;
+
     public string Name // trochę nieeleganckie, ale unikam dodania Description również do interfejsu mappable (można by zunifikować wszedzie do Name)
     {
         get

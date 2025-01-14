@@ -37,7 +37,12 @@ public class SimulationHistory
             for (int y = 0; y < SizeY; y++)
             {
                 List<IMappable> creaturesInPoint = _simulation.Map.At(x, y);
-                if (creaturesInPoint.Count == 1)
+                List<IMappable> obstaclesInPoint = _simulation.Map.ObstaclesAt(new Point(x, y));
+                if (obstaclesInPoint.Count > 0)
+                {
+                    simulationBaseline.Symbols.Add(new Point(x, y), obstaclesInPoint[0].MapSymbol);
+                }
+                else if (creaturesInPoint.Count == 1)
                 {
                     simulationBaseline.Symbols.Add(new Point(x, y), creaturesInPoint[0].MapSymbol);
                 }
@@ -47,6 +52,7 @@ public class SimulationHistory
                 }
             }
         }
+
         TurnLogs.Add(simulationBaseline);
 
         while (!_simulation.Finished)
@@ -63,7 +69,12 @@ public class SimulationHistory
                 for (int y = 0; y < SizeX; y++)
                 {
                     List<IMappable> creaturesInPoint = _simulation.Map.At(x, y);
-                    if (creaturesInPoint.Count == 1)
+                    List<IMappable> obstaclesInPoint = _simulation.Map.ObstaclesAt(new Point(x, y));
+                    if (obstaclesInPoint.Count > 0)
+                    {
+                        newTurn.Symbols.Add(new Point(x, y), obstaclesInPoint[0].MapSymbol);
+                    }
+                    else if (creaturesInPoint.Count == 1)
                     {
                         newTurn.Symbols.Add(new Point(x, y), creaturesInPoint[0].MapSymbol);
                     }

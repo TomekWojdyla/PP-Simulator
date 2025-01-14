@@ -87,7 +87,12 @@ public class MapVisualizer
             for (int x = 0; x < Map.SizeX; x++) // ilość kolumn taka jak rozmiar mapy w poziomie
             {
                 List<IMappable> creaturesInPoint = this.Map.At(x, y);
-                if (creaturesInPoint == null || creaturesInPoint.Count == 0) // jeżeli lista stworów w punkcie jest pusta
+                List<IMappable> obstaclesInPoint = this.Map.ObstaclesAt(new Point(x, y));
+                if (obstaclesInPoint.Count > 0)
+                {
+                    dataRows[y] += obstaclesInPoint[0].MapSymbol;
+                }
+                else if (creaturesInPoint == null || creaturesInPoint.Count == 0) // jeżeli lista stworów w punkcie jest pusta
                 {
                     dataRows[y] += " ";
                 }

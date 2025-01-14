@@ -25,6 +25,8 @@ public abstract class Creature : IMappable
     /// </summary>
     public Point Position { get; set; }
 
+    public bool IsLost { get; set; } = false;
+
     /// <summary>
     /// Creature's Power identifier.
     /// </summary>

@@ -10,7 +10,11 @@ namespace Simulator;
 public class Simulation
 {
     private int _currentTurnIndex; // index kolejki (zaczynając od 0 w konstruktorze
+    private int _currentCreatureIndex; 
     private int _numberOfTurns; // dla czytelności kodu -> ilość kolejek na podstawie długości sparsowanego stringu Moves
+    private bool _creatureKilled = false;
+    public bool simulationMessage = false;
+    public string endingMessage;
 
     /// <summary>
     /// Simulation's map.
@@ -35,6 +39,17 @@ public class Simulation
     /// next move is again for first creature and so on.
     /// </summary>
     public string Moves { get; }
+
+
+    /// <summary>
+    /// Obstacles on the map.
+    /// </summary>
+    public List<IMappable> StaticObstacles { get; }
+
+    /// <summary>
+    /// Positions of obstacles.
+    /// </summary>
+    public List<Point> ObstaclePositions { get; }
 
     /// <summary>
     /// Has all moves been done?
@@ -94,7 +109,7 @@ public class Simulation
     /// number of starting positions.
     /// </summary>
     public Simulation(Map map, List<IMappable> creatures,
-        List<Point> positions, string moves)
+        List<Point> positions, string moves, List<IMappable> staticObstacles = null, List<Point> obstaclePositions = null)
     {
         Map = map;
         if (creatures.Count == 0) // Walidacja dla pustego stringu stworów
@@ -109,8 +124,11 @@ public class Simulation
         {
             Creatures = creatures;
             Positions = positions;
+            StaticObstacles = staticObstacles;
+            ObstaclePositions = obstaclePositions;
             Moves = moves;
             _currentTurnIndex = 0;
+            _currentCreatureIndex = 0;
             _numberOfTurns = _directionListForSimulation.Count;
             
             // Inicjowanie stworów na mapie
@@ -119,6 +137,16 @@ public class Simulation
             {
                 mappable.InitMapAndPosition(Map, Positions[i]);
                 i++;
+            }
+
+            if (staticObstacles != null)
+            {
+                int j = 0;
+                foreach (IMappable mappable in StaticObstacles)
+                {
+                    mappable.InitMapAndPosition(Map, ObstaclePositions[j]);
+                    j++;
+                }
             }
         }
     }
@@ -129,11 +157,89 @@ public class Simulation
     /// </summary>
     public void Turn()
     {
-        CurrentCreature.Go(_directionListForSimulation[_currentTurnIndex]);
-        _currentTurnIndex++; 
+        simulationMessage = false;
+        if (CurrentCreature.IsLost)
+        {
+            CurrentCreature.RandomMove();
+        }
+        else
+        {
+            CurrentCreature.Go(_directionListForSimulation[_currentTurnIndex]);
+        }
+
+
+
+        if (ObstaclePositions != null && ObstaclePositions.Contains(CurrentCreature.Position))
+        {
+            int obstacleIndex = ObstaclePositions.IndexOf(CurrentCreature.Position);
+            StaticObstacle currentObstacle = (StaticObstacle)StaticObstacles[obstacleIndex];
+
+            switch (currentObstacle.NaturalElement)
+            {
+                case NaturalElement.Water:
+                    endingMessage = $"{CurrentCreature} has drown...";
+                    Drown();
+                    break;
+                case NaturalElement.Earth:
+                    endingMessage = $"{CurrentCreature} cannot go this direction...";
+                    RevertMove();
+                    break;
+                case NaturalElement.Air:
+                    endingMessage = $"{CurrentCreature} got lost in fog...";
+                    CurrentCreature.IsLost = true;
+                    break;
+            }
+            simulationMessage = true;
+
+        }
+        if (Creatures.Count == 0)
+        {
+            this.Finished = true;
+            endingMessage = "All creatures and animals are dead....";
+            simulationMessage = true;
+        }
+
+
+
+        _currentTurnIndex++;
+        _currentCreatureIndex++;
+        if (_creatureKilled)
+        {
+            _currentCreatureIndex--;
+            _creatureKilled = false;
+        }
+
         if (_currentTurnIndex == _numberOfTurns)
         {
-            Finished = true;
+            this.Finished = true;
+            endingMessage = "At the end of simulation you still have some living creatures or animals! WELL DONE!";
+            simulationMessage = true;
+        }
+    }
+
+    public void Drown()
+    {
+        Map.Remove(CurrentCreature, CurrentCreature.Position);
+        Creatures.Remove(CurrentCreature);
+        _creatureKilled = true;
+    }
+
+    public void RevertMove()
+    {
+        switch (CurrentMoveName)
+        {
+            case "up":
+                CurrentCreature.Go(Direction.Down);
+                break;
+            case "right":
+                CurrentCreature.Go(Direction.Left);
+                break;
+            case "down":
+                CurrentCreature.Go(Direction.Up);
+                break;
+            case "left":
+                CurrentCreature.Go(Direction.Right);
+                break;
         }
     }
 }

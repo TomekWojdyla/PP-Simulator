@@ -78,10 +78,47 @@ public abstract class SmallMap : Map
         }
         else
         {
-            var listOfCreaturesInPoint = _fields[point.X, point.Y];
-            if (listOfCreaturesInPoint != null && listOfCreaturesInPoint.Count != 0)
+            var listOfItemsInPoint = _fields[point.X, point.Y];
+            List<IMappable> listOfCreaturesInPoint = [];
+            if (listOfItemsInPoint != null && listOfItemsInPoint.Count != 0)
             {
+                foreach (IMappable item in listOfItemsInPoint)
+                {
+                    if (item is not StaticObstacle)
+                    {
+                        listOfCreaturesInPoint.Add((IMappable)item);
+                    }
+                }
                 return listOfCreaturesInPoint;
+            }
+            else
+            {
+                return new List<IMappable> { };
+            }
+        }
+    }
+
+    public override List<IMappable> ObstaclesAt(Point point)
+    {
+        if (this.Exist(point) == false)
+        {
+            return new List<IMappable> { };
+        }
+        else
+        {
+            var listOfItemsInPoint = _fields[point.X, point.Y];
+            List<IMappable> listOfObstaclesInPoint = [];
+            if (listOfItemsInPoint != null && listOfItemsInPoint.Count != 0)
+            {
+                foreach (IMappable item in  listOfItemsInPoint)
+                {
+                    if (item is StaticObstacle)
+                    {
+                        listOfObstaclesInPoint.Add((StaticObstacle)item);
+                    }
+                }
+                
+                return listOfObstaclesInPoint;
             }
             else
             {
