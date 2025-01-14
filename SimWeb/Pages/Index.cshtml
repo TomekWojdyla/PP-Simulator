@@ -1,0 +1,13 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "About Simulation";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome to simulation demo</h1>
+    <h3>Take a seat and have a look on simulation of creatures in the map.</h3>
+    <p><b>Creatures in the map: </b> @Model.CreaturesInMap</p>
+    <p><b>Map type and size: </b> @Model.Simulation.Map.ToString() : (@Model.Simulation.Map.SizeX x @Model.Simulation.Map.SizeY)</p>
+    <p><b>Move sequence: </b> @Model.Simulation.Moves</p>
+</div>

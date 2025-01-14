@@ -1,0 +1,54 @@
+﻿@page
+@model SimulationModel
+@{
+    ViewData["Title"] = "Simulation Demo";
+}
+<style>
+    .map {
+        grid-template-columns: max-content repeat( @Model.Simulation.Map.SizeX, max-content);
+        grid-template-rows: repeat( @Model.Simulation.Map.SizeY, 1fr) max-content;
+    }
+</style>
+
+<div class="container text-center">
+    <div class="map">
+        @for (int y = Model.Simulation.Map.SizeY - 1; y >= -1; y--)
+        {
+            if (y >= 0)
+            {
+                <p>@y</p>
+                @for (int x = 0; x < Model.Simulation.Map.SizeX; x++)
+                {
+                    <div class="grid-item">
+                        @if (@Model.Logbook.TurnLogs[Model.CurrentTurnIndex].Symbols.ContainsKey(new Simulator.Point(x, y)))
+                        {
+                            <p>@Model.Logbook.TurnLogs[Model.CurrentTurnIndex].Symbols[new Simulator.Point(x, y)]</p>
+                        }
+                    </div>
+                }
+            }
+            else
+            {
+                <span></span>
+                @for (int x = 0; x < Model.Simulation.Map.SizeX; x++)
+                {
+                    <span>@x</span>
+                }
+            }
+        }
+
+    </div>
+
+        <div class="turns">
+            <a asp-page="/Simulation" asp-route-Turn="@(Model.CurrentTurnIndex == 0 ? 0 : Model.CurrentTurnIndex - 1)" class="@(Model.CurrentTurnIndex == 0 ? "disabled" : "")">
+                <button class="btn btn-danger @(Model.CurrentTurnIndex == 0 ? "disabled" : "")"><- Back</button>
+            </a>
+            <h1>Turn # @Model.CurrentTurnIndex</h1>
+            <a asp-page="/Simulation" asp-route-Turn="@(Model.CurrentTurnIndex == Model.TurnCounter ? Model.TurnCounter : Model.CurrentTurnIndex + 1)" class="@(Model.CurrentTurnIndex == Model.TurnCounter ? "disabled" : "")">
+                <button class="btn btn-success @(Model.CurrentTurnIndex == Model.TurnCounter ? "disabled" : "")">Next -></button>
+            </a>
+        </div>
+
+    <div class="instructions">
+        <h2>@Model.Logbook.TurnLogs[Model.CurrentTurnIndex].Mappable => @Model.Logbook.TurnLogs[Model.CurrentTurnIndex].Move</h2>
+    </div>
