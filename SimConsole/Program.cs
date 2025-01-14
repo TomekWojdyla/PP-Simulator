@@ -30,26 +30,50 @@ internal class Program
         string moves = "dlrludluddlrulr";
 
         Simulation simulation = new(map, creatures, points, moves);
-        MapVisualizer mapVisualizer = new(simulation.Map);
 
-        Console.WriteLine("Created Creatures in map:");
-        foreach (IMappable mappable in creatures)
+        //MapVisualizer mapVisualizer = new(simulation.Map);
+
+        //Console.WriteLine("Created Creatures in map:");
+        //foreach (IMappable mappable in creatures)
+        //{
+        //    Console.WriteLine(mappable.ToString());
+        //}
+        //Console.WriteLine("\nStarting Positions:");
+
+        //mapVisualizer.Draw();
+
+        //while (!simulation.Finished)
+        //{
+        //    Console.WriteLine("Press any key to continue...");
+        //    Console.ReadKey();
+        //    Console.WriteLine($"\nTurn {simulation.CurrentTurnNumber}:");
+        //    Console.WriteLine ($"{simulation.CurrentCreature} goes {simulation.CurrentMoveName}:");
+        //    simulation.Turn();
+        //    mapVisualizer.Draw();
+        //}
+        //Console.WriteLine("End of simulation!");
+
+        Console.WriteLine("\nSIMULATION LOGBOOK:");
+        var logbook = new SimulationHistory(simulation);
+        foreach (SimulationTurnLog turn in logbook.TurnLogs)
         {
-            Console.WriteLine(mappable.ToString());
+            Console.WriteLine($"\nTurn # {logbook.TurnLogs.IndexOf(turn)}:");
+            Console.WriteLine($"Creature: {turn.Mappable}");
+            Console.WriteLine($"Move: {turn.Move}");
+            foreach (var symbol in turn.Symbols)
+                Console.WriteLine($"{symbol.Key} {symbol.Value}");
         }
-        Console.WriteLine("\nStarting Positions:");
+        Console.WriteLine();
+        Console.WriteLine("\nEND OF LOGBOOK.");
 
-        mapVisualizer.Draw();
+        Console.WriteLine($"\nWhich Turn you would like to see? \nProvide a number between 0 and {logbook.TurnLogs.Count-1}:");
+        int selectedTurn = int.Parse(Console.ReadLine());
 
-        while (!simulation.Finished)
-        {
-            Console.WriteLine("Press any key to continue...");
-            Console.ReadKey();
-            Console.WriteLine($"\nTurn {simulation.CurrentTurnNumber}:");
-            Console.WriteLine ($"{simulation.CurrentCreature} goes {simulation.CurrentMoveName}:");
-            simulation.Turn();
-            mapVisualizer.Draw();
-        }
-        Console.WriteLine("End of simulation!");
+        Console.WriteLine($"\nTurn # {selectedTurn}:");
+        Console.WriteLine($"Creature: {logbook.TurnLogs[selectedTurn].Mappable}");
+        Console.WriteLine($"Move: {logbook.TurnLogs[selectedTurn].Move}");
+        foreach (var symbol in logbook.TurnLogs[selectedTurn].Symbols)
+            Console.WriteLine($"{symbol.Key} {symbol.Value}");
+
     }
 }
