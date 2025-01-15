@@ -5,8 +5,8 @@
 }
 <style>
     .map {
-        grid-template-columns: max-content repeat( @Model.Simulation.Map.SizeX, max-content);
-        grid-template-rows: repeat( @Model.Simulation.Map.SizeY, 1fr) max-content;
+    grid-template-columns: max-content repeat( @Model.Simulation.Map.SizeX, max-content);
+    grid-template-rows: repeat( @Model.Simulation.Map.SizeY, 1fr) max-content;
     }
 </style>
 
@@ -22,7 +22,22 @@
                     <div class="grid-item">
                         @if (@Model.Logbook.TurnLogs[Model.CurrentTurnIndex].Symbols.ContainsKey(new Simulator.Point(x, y)))
                         {
-                            <p>@Model.Logbook.TurnLogs[Model.CurrentTurnIndex].Symbols[new Simulator.Point(x, y)]</p>
+                            if (@Model.Logbook.TurnLogs[Model.CurrentTurnIndex].Symbols[new Simulator.Point(x, y)] == 'H')
+                            {
+                                <img src="~/lib/images/H.jpg" style="width:60px" alt="Hill" />
+                            }
+                            else if (@Model.Logbook.TurnLogs[Model.CurrentTurnIndex].Symbols[new Simulator.Point(x, y)] == 'M')
+                            {
+                                <img src="~/lib/images/M.jpg" style="width:60px" alt="Mist" />
+                            }
+                            else if (@Model.Logbook.TurnLogs[Model.CurrentTurnIndex].Symbols[new Simulator.Point(x, y)] == 'W')
+                            {
+                                <img src="~/lib/images/W.jpg" style="width:60px" alt="Water" />
+                            }
+                            else
+                            {
+                                <p>@Model.Logbook.TurnLogs[Model.CurrentTurnIndex].Symbols[new Simulator.Point(x, y)]</p>
+                            }
                         }
                     </div>
                 }

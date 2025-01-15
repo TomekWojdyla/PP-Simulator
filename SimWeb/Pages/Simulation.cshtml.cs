@@ -29,20 +29,20 @@ public class SimulationModel : PageModel
 
 
         Map map = new SmallTorusMap(8, 6);
-        //List<IMappable> creatures = [new Orc("Gorbag"), new Elf("Elandor"), new Animals() { Description = "Rabbits" }];
-        //List<Simulator.Point> creaturePoints = [new Simulator.Point(2, 1), new Simulator.Point(2, 3), new Simulator.Point(4, 4)];
-        //string simulationMoves = "rdlrrruuuurrr";
+        List<IMappable> creatures = [new Orc("Gorbag"), new Elf("Elandor"), new Animals() { Description = "Rabbits" }];
+        List<Simulator.Point> creaturePoints = [new Simulator.Point(2, 1), new Simulator.Point(2, 3), new Simulator.Point(4, 4)];
+        string simulationMoves = "rdlrrruuuurrr";
 
-        //List<IMappable> staticObstacles = [new StaticObstacle("Mountain", NaturalElement.Earth), new StaticObstacle("River", NaturalElement.Water),
-        //    new StaticObstacle("River", NaturalElement.Water), new StaticObstacle("River", NaturalElement.Water),new StaticObstacle("Mist", NaturalElement.Air)];
-        //List<Simulator.Point> obstaclePoints = [new(2, 2), new(3, 5), new(3, 4), new(3, 3), new(5, 4)];
+        List<IMappable> staticObstacles = [new StaticObstacle("Mountain", NaturalElement.Earth), new StaticObstacle("River", NaturalElement.Water),
+            new StaticObstacle("River", NaturalElement.Water), new StaticObstacle("River", NaturalElement.Water),new StaticObstacle("Mist", NaturalElement.Air)];
+        List<Simulator.Point> obstaclePoints = [new(2, 2), new(3, 5), new(3, 4), new(3, 3), new(5, 4)];
 
-        List<IMappable> creatures = [new Orc("Gorbag")];
-        List<Simulator.Point> creaturePoints = [new Simulator.Point(2, 1)];
-        string simulationMoves = "uuuuuuu";
+        //List<IMappable> creatures = [new Orc("Gorbag")];
+        //List<Simulator.Point> creaturePoints = [new Simulator.Point(2, 1)];
+        //string simulationMoves = "uuuuuuu";
 
-        List<IMappable> staticObstacles = [new StaticObstacle("Mist", NaturalElement.Air)];
-        List<Simulator.Point> obstaclePoints = [new(2, 2)];
+        //List<IMappable> staticObstacles = [new StaticObstacle("Mist", NaturalElement.Air)];
+        //List<Simulator.Point> obstaclePoints = [new(2, 2)];
 
         Simulation = new Simulation(map, creatures, creaturePoints, simulationMoves, staticObstacles, obstaclePoints);
 
