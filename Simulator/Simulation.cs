@@ -98,6 +98,7 @@ public class Simulation
         {
             return $"{_directionListForSimulation[_currentTurnIndex].ToString().ToLower()}";
         }
+        set { }
     }
 
 
@@ -109,7 +110,7 @@ public class Simulation
     /// number of starting positions.
     /// </summary>
     public Simulation(Map map, List<IMappable> creatures,
-        List<Point> positions, string moves, List<IMappable> staticObstacles = null, List<Point> obstaclePositions = null)
+        List<Point> positions, string moves, List<IMappable> staticObstacles, List<Point> obstaclePositions)
     {
         Map = map;
         if (creatures.Count == 0) // Walidacja dla pustego stringu stworów
@@ -158,9 +159,11 @@ public class Simulation
     public void Turn()
     {
         simulationMessage = false;
+        endingMessage = "";
         if (CurrentCreature.IsLost)
         {
             CurrentCreature.RandomMove();
+            CurrentCreature.IsLost = false;
         }
         else
         {
@@ -215,6 +218,8 @@ public class Simulation
             endingMessage = "At the end of simulation you still have some living creatures or animals! WELL DONE!";
             simulationMessage = true;
         }
+
+
     }
 
     public void Drown()

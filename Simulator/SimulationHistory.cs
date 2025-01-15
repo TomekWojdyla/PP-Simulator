@@ -28,9 +28,10 @@ public class SimulationHistory
     {
         var simulationBaseline = new SimulationTurnLog()
         {
-            Mappable = "Simulation Baseline",
-            Move = "Simulation Baseline",
-            Symbols = new Dictionary<Point, char>()
+            Mappable = "Get Ready...",
+            Move = "Hit Next to start!",
+            Symbols = new Dictionary<Point, char>(),
+            SimulationMessage = "Simulation Baseline"
         };
         for (int x = 0; x < SizeX; x++)
         {
@@ -61,7 +62,8 @@ public class SimulationHistory
             {
                 Mappable = _simulation.CurrentCreature.ToString(),
                 Move = _simulation.CurrentMoveName.ToString(),
-                Symbols = new Dictionary<Point, char>()
+                Symbols = new Dictionary<Point, char>(),
+                SimulationMessage = ""
             };
             _simulation.Turn();
             for (int x = 0; x < SizeX; x++)
@@ -84,6 +86,7 @@ public class SimulationHistory
                     }
                 }
             }
+            newTurn.SimulationMessage += _simulation.endingMessage;
             TurnLogs.Add(newTurn);
         }
     }

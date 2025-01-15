@@ -25,4 +25,9 @@ public class SimulationTurnLog
     /// Dictionary of IMappable.Symbol on the map in this turn.
     /// </summary>
     public required Dictionary<Point, char> Symbols { get; init; }
+
+    /// <summary>
+    /// Simulation message for the turn.
+    /// </summary>
+    public required string SimulationMessage { get; set; }
 }
