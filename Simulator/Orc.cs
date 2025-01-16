@@ -36,6 +36,7 @@ public class Orc : Creature
         }
     }
 
+    public override List<Item> Backpack { get; set; } = new List<Item>();
     public override string Info
     {
         get

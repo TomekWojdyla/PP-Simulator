@@ -52,6 +52,16 @@ public class Simulation
     public List<Point> ObstaclePositions { get; }
 
     /// <summary>
+    /// Items on the map.
+    /// </summary>
+    public List<Item> Items { get; }
+
+    /// <summary>
+    /// Positions of items.
+    /// </summary>
+    public List<Point> ItemPositions { get; }
+
+    /// <summary>
     /// Has all moves been done?
     /// </summary>
     public bool Finished = false;
@@ -110,7 +120,9 @@ public class Simulation
     /// number of starting positions.
     /// </summary>
     public Simulation(Map map, List<IMappable> creatures,
-        List<Point> positions, string moves, List<IMappable> staticObstacles, List<Point> obstaclePositions)
+        List<Point> positions, string moves, List<IMappable> staticObstacles, List<Point> obstaclePositions, 
+        List<Item> items, List<Point> itemPositions)
+
     {
         Map = map;
         if (creatures.Count == 0) // Walidacja dla pustego stringu stworów
@@ -127,6 +139,8 @@ public class Simulation
             Positions = positions;
             StaticObstacles = staticObstacles;
             ObstaclePositions = obstaclePositions;
+            Items = items;
+            ItemPositions = itemPositions;
             Moves = moves;
             _currentTurnIndex = 0;
             _currentCreatureIndex = 0;
@@ -146,6 +160,16 @@ public class Simulation
                 foreach (IMappable mappable in StaticObstacles)
                 {
                     mappable.InitMapAndPosition(Map, ObstaclePositions[j]);
+                    j++;
+                }
+            }
+
+            if (items != null)
+            {
+                int j = 0;
+                foreach (Item mappable in Items)
+                {
+                    mappable.InitMapAndPosition(Map, ItemPositions[j]);
                     j++;
                 }
             }
@@ -185,6 +209,12 @@ public class Simulation
             simulationMessage = true;
 
         }
+
+        if (ItemPositions != null && ItemPositions.Contains(CurrentCreature.Position))
+        {
+            if (CurrentCreature is Creature creature) PickUpItem(creature);
+        }
+
         if (Creatures.Count == 0)
         {
             this.Finished = true;
@@ -206,6 +236,18 @@ public class Simulation
         {
             this.Finished = true;
             endingMessage = "At the end of simulation you still have some living creatures or animals! WELL DONE!";
+            foreach (IMappable mappable in this.Creatures) {
+                if (mappable.Map != null)// || mappable is Creature creature)
+                {
+                    if (mappable is Creature creature)
+                    {
+                        if(creature.Backpack != null)
+                            endingMessage += $"\n{creature.Name} picked {creature.Backpack.Count} {(creature.Backpack.Count !=1 ? "coins" : "coin")}!";
+                    }
+                }
+
+            }
+
             simulationMessage = true;
         }
 
@@ -235,6 +277,26 @@ public class Simulation
             case "left":
                 CurrentCreature.Go(Direction.Right);
                 break;
+        }
+    }
+
+    public void PickUpItem(Creature creature)
+    {
+        Point itPosisiton = creature.Position;
+
+        foreach (IMappable mappable in Map.At(itPosisiton))
+        {
+            if (mappable is Item it)
+            {
+                if (creature.Backpack != null)
+                {
+                    Map.Remove(it, itPosisiton);
+                    creature.Backpack.Add(it);
+                    Items.Remove(it);
+                    ItemPositions.Remove(itPosisiton);
+                    endingMessage = $"{creature} picked up {it.Name}!\n";
+                }
+            }
         }
     }
 }

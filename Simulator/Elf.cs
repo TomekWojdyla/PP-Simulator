@@ -24,6 +24,8 @@ public class Elf : Creature
         get { return 8 * Level + 2 * Agility; }
     }
 
+    public override List<Item> Backpack { get; set; } = new List<Item>();
+
     public override string Info
     {
         get 

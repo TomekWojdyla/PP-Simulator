@@ -67,12 +67,12 @@
 
     <div class="instructions">
         <h2>@Model.Mappable => @Model.Move</h2>
-        <h2>@Model.SimulationMessage</h2> 
+        <h2>@Html.Raw(Model.SimulationMessage.Replace("\n","<br>"))</h2> 
     </div>
     }
     else
     {
-        <h4 class="mx-2 text-center mt-5">Simulation error! Return to start page:</h4>
+        <h4 class="mx-2 text-center mt-5">Simulation error! Return to the start page:</h4>
         <a asp-page="/Index">
             <button class="btn btn-secondary btn-primary">&olarr;</button>
         </a>

@@ -44,10 +44,13 @@ internal class Program
         List<Simulator.Point> points = [new Simulator.Point(2, 1)];
         string moves = "uuuuuuu";
 
-        List<IMappable> staticObstacles = [new StaticObstacle("Mist", NaturalElement.Air)];
-        List<Simulator.Point> obstaclePoints = [new(2, 2)];
+        List<IMappable> staticObstacles = [/*new StaticObstacle("Mist", NaturalElement.Air)*/];
+        List<Simulator.Point> obstaclePoints = [/*new(2, 2)*/];
 
-        Simulation simulation = new(map, creatures, points, moves, staticObstacles, obstaclePoints);
+        List<Item> items = Enumerable.Repeat((Item)new Coin(), 10).ToList();
+        List<Point> itemPositions = [new(2, 2), new(3, 4), new(1, 0), new(7, 5), new(0, 3), new(5, 1), new(2, 4), new(4, 0), new(6, 3), new(1, 5)];
+
+        Simulation simulation = new(map, creatures, points, moves, staticObstacles, obstaclePoints, items, itemPositions);
 
         //MapVisualizer mapVisualizer = new(simulation.Map);
 
@@ -59,7 +62,7 @@ internal class Program
         //Console.WriteLine("\nStarting Positions:");
 
         //mapVisualizer.Draw();
-
+        
         //while (!simulation.Finished)
         //{
         //    Console.WriteLine("Press any key to continue...");

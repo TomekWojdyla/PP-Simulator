@@ -33,6 +33,11 @@ public abstract class Creature : IMappable
     public abstract int Power {  get; }
 
     /// <summary>
+    /// Creature's backpack to store items.
+    /// </summary>
+    public abstract List<Item> Backpack { get; set; }
+
+    /// <summary>
     /// Information about Creature.
     /// </summary>
     public abstract string Info { get; }
