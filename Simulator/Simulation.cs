@@ -73,7 +73,8 @@ public class Simulation
     {
         get 
         {
-            return Creatures[_currentTurnIndex % Creatures.Count]; // modulo ponieważ stworów i ruchów może być różna ilość -> zabezpieczenie gdyby było mniej stworów
+            if (_currentCreatureIndex >= Creatures.Count) _currentCreatureIndex = 0;
+            return Creatures[_currentCreatureIndex]; 
         }
     }
 
