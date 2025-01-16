@@ -43,7 +43,7 @@ public abstract class Map
         SizeX = sizeX;
         SizeY = sizeY;
         _map = new Rectangle(0, 0, SizeX - 1, SizeY - 1);
-    }
+     }
 
     /// <summary>
     /// Check if given point belongs to the map.
@@ -97,8 +97,19 @@ public abstract class Map
     /// <returns>N/A - Creature moved between indicated points.</returns>
     public void Move(IMappable mappable, Point startPoint, Point endPoint)
     {
-        Remove(mappable, startPoint); // check if creature was in this point before adding? 
-        Add(mappable, endPoint);
+        if (!mappable.IsLost)
+        {
+            Remove(mappable, startPoint); // check if creature was in this point before adding? 
+            Add(mappable, endPoint);
+        } else
+        {
+            Remove(mappable, startPoint);
+            Random random = new Random();
+            Array allMoves = Enum.GetValues(typeof(Direction));
+            Direction newDirection = (Direction)allMoves.GetValue(random.Next(allMoves.Length));
+            mappable.IsLost = false;
+            Add(mappable, Next(startPoint, newDirection));
+        }
     }
 
     /// <summary>

@@ -12,6 +12,8 @@ public class IndexModel : PageModel
 
     public Simulation Simulation { get; }
 
+    public SimulationHistory History { get; }
+
     public string CreaturesInMap { get; } = "";
 
 
@@ -46,7 +48,7 @@ public class IndexModel : PageModel
         //List<Simulator.Point> obstaclePoints = [new(2, 2)];
 
         Simulation = new Simulation(map, creatures, creaturePoints, simulationMoves, staticObstacles, obstaclePoints);
-
+        History = new SimulationHistory(Simulation);
 
         foreach (IMappable mappable in creatures)
         {
@@ -56,6 +58,15 @@ public class IndexModel : PageModel
 
     public void OnGet()
     {
-
+        HttpContext.Session.SetInt32("MaxTurn", History.TurnLogs.Count - 1);
+        HttpContext.Session.SetInt32("SizeX", History.SizeX);
+        HttpContext.Session.SetInt32("SizeY", History.SizeY);
+        for (int i = 0; i < History.TurnLogs.Count; i++)
+        {
+            HttpContext.Session.SetString($"Turn{i}.Mappable", History.TurnLogs[i].Mappable);
+            HttpContext.Session.SetString($"Turn{i}.Move", History.TurnLogs[i].Move);
+            HttpContext.Session.SetString($"Turn{i}.Symbols", History.TurnLogs[i].StrigifySymbols());
+            HttpContext.Session.SetString($"Turn{i}.Message", History.TurnLogs[i].SimulationMessage);
+        }
     }
 }

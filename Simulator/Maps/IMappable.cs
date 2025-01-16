@@ -47,15 +47,4 @@ public interface IMappable
     /// Removing from map method for a mappable object.
     /// </summary>
     void RemoveFromMap();
-
-    /// <summary>
-    /// Generates a move of mappable in a random direction.
-    /// </summary>
-    public void RandomMove()
-    {
-        Random random = new Random();
-        Array allMoves = Enum.GetValues(typeof(Direction));
-        Direction randomMove = (Direction)allMoves.GetValue(random.Next(allMoves.Length));
-        this.Go(randomMove);
-    }
 }

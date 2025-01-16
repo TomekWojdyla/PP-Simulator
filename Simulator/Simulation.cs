@@ -131,7 +131,7 @@ public class Simulation
             _currentTurnIndex = 0;
             _currentCreatureIndex = 0;
             _numberOfTurns = _directionListForSimulation.Count;
-            
+
             // Inicjowanie stworów na mapie
             int i = 0; // Positions iterator
             foreach (IMappable mappable in creatures)
@@ -160,17 +160,7 @@ public class Simulation
     {
         simulationMessage = false;
         endingMessage = "";
-        if (CurrentCreature.IsLost)
-        {
-            CurrentCreature.RandomMove();
-            CurrentCreature.IsLost = false;
-        }
-        else
-        {
-            CurrentCreature.Go(_directionListForSimulation[_currentTurnIndex]);
-        }
-
-
+        CurrentCreature.Go(_directionListForSimulation[_currentTurnIndex]);
 
         if (ObstaclePositions != null && ObstaclePositions.Contains(CurrentCreature.Position))
         {

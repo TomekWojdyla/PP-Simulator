@@ -8,6 +8,8 @@ namespace SimWeb
 
             // Add services to the container.
             builder.Services.AddRazorPages();
+            builder.Services.AddDistributedMemoryCache();
+            builder.Services.AddSession();
 
             var app = builder.Build();
 
@@ -27,6 +29,7 @@ namespace SimWeb
             app.UseAuthorization();
 
             app.MapRazorPages();
+            app.UseSession();
 
             app.Run();
         }
