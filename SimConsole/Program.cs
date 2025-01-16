@@ -8,7 +8,7 @@ internal class Program
 {
     static void Main(string[] args)
     {
-        //Console.OutputEncoding = Encoding.UTF8; // Wygląda na niepotrzebne?
+        Console.OutputEncoding = Encoding.UTF8; // Wygląda na niepotrzebne?
         Console.WriteLine("SIMULATION!\n");
 
 

@@ -50,12 +50,13 @@ public class IndexModel : PageModel
         //List<Simulator.Point> obstaclePoints = [new(2, 2)];
 
         Simulation = new Simulation(map, creatures, creaturePoints, simulationMoves, staticObstacles, obstaclePoints, items, itemPositions);
-        History = new SimulationHistory(Simulation);
 
         foreach (IMappable mappable in creatures)
         {
             CreaturesInMap += mappable.ToString() + " ; ";
         };
+
+        History = new SimulationHistory(Simulation);
     }
 
     public void OnGet()
